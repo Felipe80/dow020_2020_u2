@@ -21,22 +21,23 @@
                 Agregar Equipo
             </div>
             <div class="card-body">
-                <form>
+                <form method="POST" action="{{route('equipos.store')}}">
+                    @csrf
                     <div class="form-group">
                         <label for="nombre">Nombre Equipo:</label>
-                        <input type="text" id="nombre" class="form-control">
+                        <input type="text" id="nombre" name="nombre" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="nombre">Entrenador:</label>
-                        <input type="text" id="nombre" class="form-control">
+                        <label for="entrenador">Entrenador:</label>
+                        <input type="text" id="entrenador" name="entrenador" class="form-control">
                     </div>
                     <div class="form-group">
                         <div class="row">
                             <div class="col-12 col-lg-3 offset-lg-6 pr-lg-0">
-                                <button class="btn btn-warning btn-block">Cancelar</button>
+                                <button type="reset" class="btn btn-warning btn-block">Cancelar</button>
                             </div>
                             <div class="col-12 col-lg-3 mt-1 mt-lg-0">
-                                <button class="btn btn-info btn-block">Aceptar</button>
+                                <button type="submit" class="btn btn-info btn-block">Aceptar</button>
                             </div>
                         </div>
                     </div>
@@ -57,15 +58,17 @@
                     <th>Acciones</th>
                 </tr>
             </thead>
+            
+            @foreach ($equipos as $num=>$equipo)
             <tr>
-                <td>1</td>
+                <td>{{$num+1}}</td>
                 <td>
-                    Lorem Ipsums
+                    {{$equipo->nombre}}
                     <div class="d-lg-none">
-                        <small>Jewell Sein</small>
+                        <small>{{$equipo->entrenador}}</small>
                     </div>
                 </td>
-                <td class="d-none d-lg-table-cell">Jewell Sein</td>
+                <td class="d-none d-lg-table-cell">{{$equipo->entrenador}}</td>
                 <td>
                     <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
                         title="Borrar Equipo">
@@ -80,103 +83,8 @@
                         <i class="fas fa-user-friends"></i>
                     </a>
                 </td>
-            </tr>                       
-            <tr>
-                <td>2</td>
-                <td>
-                    Consequatur
-                    <div class="d-lg-none">
-                        <small>Yvon Eneas</small>
-                    </div>
-                </td>
-                <td class="d-none d-lg-table-cell">Yvon Eneas</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
-                        title="Borrar Equipo">
-                        <i class="far fa-trash-alt"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
-                    title="Editar Equipo">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
-                    title="Ver Jugadores">
-                        <i class="fas fa-user-friends"></i>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>
-                    Sapiente Placeat
-                    <div class="d-lg-none">
-                        <small>Tootsie Cauldwell</small>
-                    </div>
-                </td>
-                <td class="d-none d-lg-table-cell">Tootsie Cauldwell</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
-                        title="Borrar Equipo">
-                        <i class="far fa-trash-alt"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
-                    title="Editar Equipo">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
-                    title="Ver Jugadores">
-                        <i class="fas fa-user-friends"></i>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>
-                    Aperiam Autem
-                    <div class="d-lg-none">
-                        <small>Virge Pickles</small>
-                    </div>
-                </td>
-                <td class="d-none d-lg-table-cell">Virge Pickles</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
-                        title="Borrar Equipo">
-                        <i class="far fa-trash-alt"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
-                    title="Editar Equipo">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
-                    title="Ver Jugadores">
-                        <i class="fas fa-user-friends"></i>
-                    </a>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td>
-                    Blanditiis Fugit
-                    <div class="d-lg-none">
-                        <small>Laney Chivers</small>
-                    </div>
-                </td>
-                <td class="d-none d-lg-table-cell">Laney Chivers</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
-                        title="Borrar Equipo">
-                        <i class="far fa-trash-alt"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
-                    title="Editar Equipo">
-                        <i class="far fa-edit"></i>
-                    </a>
-                    <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
-                    title="Ver Jugadores">
-                        <i class="fas fa-user-friends"></i>
-                    </a>
-                </td>
-            </tr>
+            </tr> 
+            @endforeach
         </table>
     </div>
     <!--/tabla-->

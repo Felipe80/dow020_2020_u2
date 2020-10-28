@@ -41,7 +41,7 @@
                                         <div class="text-right">
                                             <div class="row">
                                                 <div class="col col-lg-3 offset-lg-9">
-                                                    <a href="home.html" class="btn btn-success btn-block">Iniciar Sesión</a>
+                                                    <a href="{{route('home.index')}}" class="btn btn-success btn-block">Iniciar Sesión</a>
                                                 </div>
                                             </div>
                                         </div>

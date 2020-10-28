@@ -21,7 +21,8 @@ use App\Http\Controllers\HomeController;
 //     return view('welcome');
 // });
 
-Route::get('/',[HomeController::class,'index']);
-Route::get('/login',[HomeController::class,'login']);
+Route::get('/',[HomeController::class,'index'])->name('home.index');
+Route::get('/login',[HomeController::class,'login'])->name('home.login');
 
-Route::get('/equipos',[EquiposController::class,'index']);
+Route::get('/equipos',[EquiposController::class,'index'])->name('equipos.index');
+Route::post('/equipos',[EquiposController::class,'store'])->name('equipos.store');

@@ -22,7 +22,7 @@
                 <small>Último inicio de sesión: 06/10/2020 a las 22:28</small>
             </div>
             <div class="col-1 text-right d-none d-lg-block">
-                <a href="index.html" class="text-white">Cerrar Sesión</a>
+                <a href="{{route('home.login')}}" class="text-white">Cerrar Sesión</a>
             </div>
         </div>
         <!--/usuario-->
@@ -37,11 +37,11 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/">Inicio</a>
+                    <li class="nav-item @if(Route::current()->getName()=='home.index') active @endif">
+                        <a class="nav-link" href="{{route('home.index')}}">Inicio</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/equipos">Equipos</a>
+                    <li class="nav-item @if(Route::current()->getName()=='equipos.index') active @endif">
+                        <a class="nav-link" href="{{route('equipos.index')}}">Equipos</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Estadios</a>

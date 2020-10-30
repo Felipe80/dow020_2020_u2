@@ -17,7 +17,7 @@ class CreateEquiposTable extends Migration
             $table->id();
             $table->string('nombre',50);
             $table->string('entrenador',50);
-            $table->timestamps();
+            $table->timestamps();//created_at, updated_at
         });
     }
 

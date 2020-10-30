@@ -49,8 +49,8 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Estadísticas</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Jugadores</a>
+                    <li class="nav-item @if(Route::current()->getName()=='jugadores.index') active @endif">
+                        <a class="nav-link" href="{{route('jugadores.index')}}">Jugadores</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Partidos</a>

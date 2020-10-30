@@ -40,15 +40,15 @@
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="pos-defensa" name="posicion" value="Defensa">
-                                <label class="form-check-label" for="pos-arquero">Defensa</label>
+                                <label class="form-check-label" for="pos-defensa">Defensa</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="pos-volante" name="posicion" value="Volante">
-                                <label class="form-check-label" for="pos-arquero">Volante</label>
+                                <label class="form-check-label" for="pos-volante">Volante</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" id="pos-delantero" name="posicion" value="Delantero">
-                                <label class="form-check-label" for="pos-arquero">Delantero</label>
+                                <label class="form-check-label" for="pos-delantero">Delantero</label>
                             </div>
                         </div>
                     </div>

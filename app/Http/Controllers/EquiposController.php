@@ -20,4 +20,14 @@ class EquiposController extends Controller
         $equipo->save();
         return redirect()->route('equipos.index');
     }
+
+    public function show(Equipo $equipo){
+        return view('equipos.show',compact('equipo'));
+    }
+
+    public function destroy(Equipo $equipo){
+        //dd($equipo->entrenador);
+        $equipo->delete();
+        return redirect()->route('equipos.index');
+    }
 }

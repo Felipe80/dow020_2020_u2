@@ -21,7 +21,7 @@
                 Agregar Jugador
             </div>
             <div class="card-body">
-                <form method="POST" action="{{route('jugadores.store')}}">
+                <form method="POST" action="{{route('jugadores.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
                         <label for="apellido">Apellido:</label>
@@ -65,6 +65,10 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="imagen">Imagen:</label>
+                        <input type="file" id="imagen" name="imagen" class="form-control-file">
+                    </div>
+                    <div class="form-group">
                         <div class="row">
                             <div class="col-12 col-lg-3 offset-lg-6 pr-lg-0">
                                 <button type="reset" class="btn btn-warning btn-block">Cancelar</button>
@@ -101,13 +105,15 @@
                 <td>{{$num+1}}</td>
                 <td class="d-lg-none">
                     {{$jugador->nombre}} {{$jugador->apellido}} ({{$jugador->numero}})<br>
-                    {{$jugador->posicion}}, {{$jugador->equipo->nombre}}
+                    {{$jugador->posicion}}, {{$jugador->equipo!=null?$jugador->equipo->nombre:'Sin equipo'}}
                 </td>
                 <td class="d-none d-lg-table-cell">{{$jugador->apellido}}</td>
                 <td class="d-none d-lg-table-cell">{{$jugador->nombre}}</td>
                 <td class="d-none d-lg-table-cell">{{$jugador->posicion}}</td>
                 <td class="d-none d-lg-table-cell">{{$jugador->numero}}</td>
-                <td class="d-none d-lg-table-cell">{{$jugador->equipo->nombre}}</td>
+                <td class="d-none d-lg-table-cell">
+                    {{$jugador->equipo!=null?$jugador->equipo->nombre:'Sin equipo'}}
+                </td>
                 <td>
                     <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
                         title="Borrar Jugador">

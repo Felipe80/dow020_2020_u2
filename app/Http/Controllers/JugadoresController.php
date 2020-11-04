@@ -21,6 +21,7 @@ class JugadoresController extends Controller
         $jugador->posicion = $request->posicion;
         $jugador->numero = $request->numero;
         $jugador->equipo_id = $request->equipo;
+        $jugador->imagen = $request->imagen->store('public/jugadores');
         $jugador->save();
         return redirect()->route('jugadores.index');
     }

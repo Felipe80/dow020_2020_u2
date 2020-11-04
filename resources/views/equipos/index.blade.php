@@ -3,7 +3,7 @@
 
 @section('hojas-estilo')
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 @endsection
 
 @section('contenido-principal')
@@ -55,41 +55,90 @@
                     <th>Nº</th>
                     <th>Equipo</th>
                     <th class="d-none d-lg-table-cell">Entrenador</th>
-                    <th>Acciones</th>
+                    <th class="d-none d-lg-table-cell">Plantel</th>
+                    <th colspan="3">Acciones</th>
                 </tr>
             </thead>
-            
+
             @foreach ($equipos as $num=>$equipo)
             <tr>
                 <td>{{$num+1}}</td>
                 <td>
-                    {{$equipo->nombre}}
+                    {{$equipo->nombre}} <span class="d-lg-none">({{count($equipo->jugadores)}})</span>
                     <div class="d-lg-none">
                         <small>{{$equipo->entrenador}}</small>
                     </div>
                 </td>
                 <td class="d-none d-lg-table-cell">{{$equipo->entrenador}}</td>
-                <td>
-                    <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
+                <td class="d-none d-lg-table-cell">{{count($equipo->jugadores)}}</td>
+                <td class="text-center" style="width:1rem">
+                    <!--Borrar-->
+                    <span data-toggle="tooltip" data-placement="top" title="Borrar Equipo">
+                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                            data-target="#equipoBorrarModal{{$equipo->id}}">
+                            <i class="far fa-trash-alt"></i>
+                        </button>
+                    </span>
+                    {{-- <form method="POST" action="{{route('equipos.destroy',$equipo->id)}}">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
+                        title="Borrar Equipo"><i class="far fa-trash-alt"></i></button>
+                    </form> --}}
+                    {{-- <a href="#" class="btn btn-sm btn-danger" data-toggle="tooltip" data-placement="top"
                         title="Borrar Equipo">
                         <i class="far fa-trash-alt"></i>
-                    </a>
+                    </a> --}}
+                    <!--/Borrar-->
+                </td>
+                <td class="text-center" style="width:1rem">
                     <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
-                    title="Editar Equipo">
+                        title="Editar Equipo">
                         <i class="far fa-edit"></i>
                     </a>
-                    <a href="#" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
-                    title="Ver Jugadores">
+                </td>
+                <td class="text-center" style="width:1rem">
+                    <a href="{{route('equipos.show',$equipo->id)}}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
+                        title="Ver Jugadores">
                         <i class="fas fa-user-friends"></i>
                     </a>
                 </td>
-            </tr> 
+            </tr>
+
+            <!-- Modal Borrar Equipo -->
+            <div class="modal fade" id="equipoBorrarModal{{$equipo->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmar Borrar Equipo</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-exclamation-circle text-danger mr-2" style="font-size: 2rem"></i>
+                                ¿Desea borrar al equipo {{$equipo->nombre}}?
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <form method="POST" action="{{route('equipos.destroy',$equipo->id)}}">
+                                @csrf
+                                @method('delete')
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-danger">Borrar Equipo</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
             @endforeach
         </table>
     </div>
     <!--/tabla-->
-  
 </div>
+
 @endsection
 
 @section('scripts')
@@ -99,6 +148,3 @@
     })
 </script>
 @endsection
-            
-
-        

@@ -40,16 +40,16 @@
                     <li class="nav-item @if(Route::current()->getName()=='home.index') active @endif">
                         <a class="nav-link" href="{{route('home.index')}}">Inicio</a>
                     </li>
-                    <li class="nav-item @if(Route::current()->getName()=='equipos.index') active @endif">
+                    <li class="nav-item @if(Request::segments()[0]=='equipos') active @endif">
                         <a class="nav-link" href="{{route('equipos.index')}}">Equipos</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Estadios</a>
+                    <li class="nav-item @if(Request::segments()[0]=='estadios') active @endif">
+                        <a class="nav-link" href="{{route('estadios.index')}}">Estadios</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Estadísticas</a>
                     </li>
-                    <li class="nav-item @if(Route::current()->getName()=='jugadores.index') active @endif">
+                    <li class="nav-item @if(Request::segments()[0]=='jugadores') active @endif">
                         <a class="nav-link" href="{{route('jugadores.index')}}">Jugadores</a>
                     </li>
                     <li class="nav-item">

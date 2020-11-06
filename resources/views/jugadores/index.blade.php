@@ -119,7 +119,7 @@
                         title="Borrar Jugador">
                         <i class="far fa-trash-alt"></i>
                     </a>
-                    <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
+                    <a href="{{route('jugadores.edit',$jugador->id)}}" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
                     title="Editar Jugador">
                         <i class="far fa-edit"></i>
                     </a>                    

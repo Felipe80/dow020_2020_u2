@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EquiposController;
 use App\Http\Controllers\JugadoresController;
+use App\Http\Controllers\EstadiosController;
 use App\Http\Controllers\HomeController;
 
 
@@ -32,3 +33,7 @@ Route::get('/equipos/{equipo}',[EquiposController::class,'show'])->name('equipos
 
 Route::get('/jugadores',[JugadoresController::class,'index'])->name('jugadores.index');
 Route::post('/jugadores',[JugadoresController::class,'store'])->name('jugadores.store');
+Route::get('/jugadores/{jugador}/edit',[JugadoresController::class,'edit'])->name('jugadores.edit');
+Route::put('/jugadores/{jugador}',[JugadoresController::class,'update'])->name('jugadores.update');
+
+Route::resource('/estadios',EstadiosController::class);

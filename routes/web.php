@@ -2,9 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\EquiposController;
-use App\Http\Controllers\JugadoresController;
-use App\Http\Controllers\EstadiosController;
+use App\Http\Controllers\{EquiposController,JugadoresController,EstadiosController,FechasController,PartidosController};
 use App\Http\Controllers\HomeController;
 
 
@@ -37,3 +35,8 @@ Route::get('/jugadores/{jugador}/edit',[JugadoresController::class,'edit'])->nam
 Route::put('/jugadores/{jugador}',[JugadoresController::class,'update'])->name('jugadores.update');
 
 Route::resource('/estadios',EstadiosController::class);
+
+Route::resource('/fechas',FechasController::class);
+
+Route::resource('/partidos',PartidosController::class);
+Route::post('/partidos/{partido}/goles',[PartidosController::class,'goles'])->name('partidos.goles');

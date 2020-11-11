@@ -49,11 +49,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Estadísticas</a>
                     </li>
+                    <li class="nav-item @if(Request::segments()[0]=='fechas') active @endif">
+                        <a class="nav-link" href="{{route('fechas.index')}}">Fechas</a>
+                    </li>
                     <li class="nav-item @if(Request::segments()[0]=='jugadores') active @endif">
                         <a class="nav-link" href="{{route('jugadores.index')}}">Jugadores</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Partidos</a>
+                    <li class="nav-item @if(Request::segments()[0]=='partidos') active @endif">
+                        <a class="nav-link" href="{{route('partidos.index')}}">Partidos</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"

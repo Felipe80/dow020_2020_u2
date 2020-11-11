@@ -13,4 +13,8 @@ class Estadio extends Model
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = false;
+
+    public function partidos(){
+        return $this->hasMany('App\Models\Partido','estadio_codigo','codigo');
+    }
 }

@@ -26,7 +26,7 @@
                     <div class="form-group row mt-4 ml-1">
                         <label for="goles_local">Goles:</label>
                         <div class="col-4">
-                            <input type="number" id="goles_local" name="goles_local" min="1" class="form-control"
+                            <input type="number" id="goles_local" name="goles_local" min="0" class="form-control"
                                 value="{{$equipo_local->pivot->cantidad_goles}}">
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     <div class="form-group row mt-4 ml-1">
                         <label for="goles_visita">Goles:</label>
                         <div class="col-4">
-                            <input type="number" id="goles_visita" name="goles_visita" min="1" class="form-control"
+                            <input type="number" id="goles_visita" name="goles_visita" min="0" class="form-control"
                                 value="{{$equipo_visita->pivot->cantidad_goles}}">
                         </div>
                     </div>

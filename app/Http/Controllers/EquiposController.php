@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Equipo;
+use App\Http\Requests\EquiposRequest;
 
 class EquiposController extends Controller
 {
@@ -13,7 +14,7 @@ class EquiposController extends Controller
         return view('equipos.index',compact('equipos'));
     }
 
-    public function store(Request $request){
+    public function store(EquiposRequest $request){
         $equipo = new Equipo();
         $equipo->nombre = $request->nombre;
         $equipo->entrenador = $request->entrenador;

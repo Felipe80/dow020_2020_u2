@@ -21,15 +21,28 @@
                 Agregar Equipo
             </div>
             <div class="card-body">
+                <!--errores-->
+                @if ($errors->any())
+                <div class="alert alert-warning">
+                    <p>Por favor solucione los siguientes problemas:</p>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <!--/errores-->
+
                 <form method="POST" action="{{route('equipos.store')}}">
                     @csrf
                     <div class="form-group">
                         <label for="nombre">Nombre Equipo:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control">
+                        <input type="text" id="nombre" name="nombre" class="form-control @error('nombre') is-invalid @enderror" value="{{old('nombre')}}">
                     </div>
                     <div class="form-group">
                         <label for="entrenador">Entrenador:</label>
-                        <input type="text" id="entrenador" name="entrenador" class="form-control">
+                        <input type="text" id="entrenador" name="entrenador" class="form-control @error('entrenador') is-invalid @enderror" value="{{old('entrenador')}}">
                     </div>
                     <div class="form-group">
                         <div class="row">
@@ -98,16 +111,16 @@
                     </a>
                 </td>
                 <td class="text-center" style="width:1rem">
-                    <a href="{{route('equipos.show',$equipo->id)}}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
-                        title="Ver Jugadores">
+                    <a href="{{route('equipos.show',$equipo->id)}}" class="btn btn-sm btn-info" data-toggle="tooltip"
+                        data-placement="top" title="Ver Jugadores">
                         <i class="fas fa-user-friends"></i>
                     </a>
                 </td>
             </tr>
 
             <!-- Modal Borrar Equipo -->
-            <div class="modal fade" id="equipoBorrarModal{{$equipo->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="equipoBorrarModal{{$equipo->id}}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">

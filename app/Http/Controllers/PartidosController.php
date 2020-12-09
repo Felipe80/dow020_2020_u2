@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\{Partido,Fecha,Estadio,Equipo};
 use Illuminate\Http\Request;
+use App\Http\Requests\PartidosRequest;
 
 class PartidosController extends Controller
 {
@@ -37,7 +38,7 @@ class PartidosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PartidosRequest $request)
     {
         $partido = new Partido();
         $partido->dia_hora = $request->dia.' '.$request->hora;

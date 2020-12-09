@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Jugador;
 use App\Models\Equipo;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\JugadoresRequest;
 
 class JugadoresController extends Controller
 {
@@ -15,8 +16,9 @@ class JugadoresController extends Controller
         return view('jugadores.index',compact('jugadores','equipos'));
     }
 
-    public function store(Request $request){
+    public function store(JugadoresRequest $request){
         $jugador = new Jugador();
+        $jugador->rut = $jugador->rut;
         $jugador->apellido = $request->apellido;
         $jugador->nombre = $request->nombre;
         $jugador->posicion = $request->posicion;

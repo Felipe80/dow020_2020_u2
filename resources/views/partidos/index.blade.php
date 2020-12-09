@@ -21,45 +21,63 @@
                 Agregar Partido
             </div>
             <div class="card-body">
+                <!--validacion-->
+                @if ($errors->any())
+                <div class="alert alert-warning">
+                    <p>Por favor solucione los siguiente problemas:</p>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <!--/validacion-->
+
                 <form method="POST" action="{{route('partidos.store')}}">
                     @csrf
                     <div class="form-group">
                         <label for="dia">Día:</label>
-                        <input type="date" id="dia" name="dia" class="form-control">
+                        <input type="date" id="dia" name="dia" class="form-control @error('dia') is-invalid @enderror" value="{{old('dia')}}">
                     </div>
                     <div class="form-group">
                         <label for="hora">Hora:</label>
-                        <input type="time" id="hora" name="hora" class="form-control">
+                        <input type="time" id="hora" name="hora" class="form-control @error('hora') is-invalid @enderror" value="{{old('hora')}}">
                     </div>
                     <div class="form-group">
                         <label for="fecha">Fecha:</label>
-                        <select name="fecha" id="fecha" class="form-control">
+                        <select name="fecha" id="fecha" class="form-control @error('fecha') is-invalid @enderror">
+                            <option value="seleccione">Seleccione</option>
                             @foreach ($fechas as $fecha)
-                                <option value="{{$fecha->id}}">Fecha: {{$fecha->numero}} ({{date('d-m-Y',strtotime($fecha->inicio))}} hasta {{date('d-m-Y',strtotime($fecha->termino))}})</option>
+                            <option value="{{$fecha->id}}">Fecha: {{$fecha->numero}}
+                                ({{date('d-m-Y',strtotime($fecha->inicio))}} hasta
+                                {{date('d-m-Y',strtotime($fecha->termino))}})</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="estadio">Estadio:</label>
-                        <select name="estadio" id="estadio" class="form-control">
+                        <select name="estadio" id="estadio" class="form-control @error('estadio') is-invalid @enderror">
                             @foreach ($estadios as $estadio)
-                                <option value="{{$estadio->codigo}}">{{$estadio->nombre}} ({{$estadio->ciudad}})</option>
+                            <option value="{{$estadio->codigo}}">{{$estadio->nombre}} ({{$estadio->ciudad}})</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="local">Equipo Local:</label>
-                        <select name="local" id="local" class="form-control">
+                        <select name="local" id="local" class="form-control @error('local') is-invalid @enderror">
                             @foreach ($equipos as $equipo)
-                                <option value="{{$equipo->id}}">{{$equipo->nombre}}</option>
+                            <option value="{{$equipo->id}}" @if($equipo->id==old('local')) selected='selected'
+                                @endif>{{$equipo->nombre}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="visita">Equipo Visita:</label>
-                        <select name="visita" id="visita" class="form-control">
+                        <select name="visita" id="visita" class="form-control @error('visita') is-invalid @enderror">
                             @foreach ($equipos as $equipo)
-                                <option value="{{$equipo->id}}">{{$equipo->nombre}}</option>
+                            <option value="{{$equipo->id}}" @if($equipo->id==old('visita')) selected='selected'
+                                @endif>{{$equipo->nombre}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -99,7 +117,8 @@
             <tr>
                 <td>{{$num+1}}</td>
                 <td>
-                    {{$partido->equipoLocal(true)->first()->nombre}} vs {{$partido->equipoLocal(false)->first()->nombre}}
+                    {{$partido->equipoLocal(true)->first()->nombre}} vs
+                    {{$partido->equipoLocal(false)->first()->nombre}}
                 </td>
                 <td>{{date('d-m-Y',strtotime($partido->dia_hora))}}</td>
                 <td>{{date('H:i',strtotime($partido->dia_hora))}}</td>
@@ -124,16 +143,16 @@
                     </a>
                 </td>
                 <td class="text-center" style="width:1rem">
-                    <a href="{{route('partidos.show',$partido->id)}}" class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="top"
-                        title="Información Partido">
+                    <a href="{{route('partidos.show',$partido->id)}}" class="btn btn-sm btn-info" data-toggle="tooltip"
+                        data-placement="top" title="Información Partido">
                         <i class="fas fa-info-circle"></i>
                     </a>
                 </td>
             </tr>
 
             <!-- Modal Borrar Partido -->
-            <div class="modal fade" id="partidoBorrarModal{{$partido->id}}" tabindex="-1" aria-labelledby="exampleModalLabel"
-                aria-hidden="true">
+            <div class="modal fade" id="partidoBorrarModal{{$partido->id}}" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -145,7 +164,8 @@
                         <div class="modal-body">
                             <div class="d-flex align-items-center">
                                 <i class="fas fa-exclamation-circle text-danger mr-2" style="font-size: 2rem"></i>
-                                ¿Desea borrar al partido {{$partido->equipoLocal(true)->first()->nombre}} vs {{$partido->equipoLocal(false)->first()->nombre}} (Fecha {{$partido->fecha->numero}})?
+                                ¿Desea borrar al partido {{$partido->equipoLocal(true)->first()->nombre}} vs
+                                {{$partido->equipoLocal(false)->first()->nombre}} (Fecha {{$partido->fecha->numero}})?
                             </div>
                         </div>
                         <div class="modal-footer">

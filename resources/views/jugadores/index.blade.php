@@ -21,11 +21,27 @@
                 Agregar Jugador
             </div>
             <div class="card-body">
+                <!--validacion-->
+                @if ($errors->any())
+                <div class="alert alert-warning">
+                    <p>Por favor solucione los siguiente problemas:</p>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+                <!--/validacion-->
                 <form method="POST" action="{{route('jugadores.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
+                        <label for="rut">Rut:</label>
+                        <input type="text" id="rut" name="rut" class="form-control @error('rut') is-invalid @enderror" value="{{old('rut')}}">
+                    </div>
+                    <div class="form-group">
                         <label for="apellido">Apellido:</label>
-                        <input type="text" id="apellido" name="apellido" class="form-control">
+                        <input type="text" id="apellido" name="apellido" class="form-control @error('apellido') is-invalid @enderror" value="{{old('apellido')}}">
                     </div>
                     <div class="form-group">
                         <label for="nombre">Nombre:</label>

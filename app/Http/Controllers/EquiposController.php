@@ -8,6 +8,10 @@ use App\Http\Requests\EquiposRequest;
 
 class EquiposController extends Controller
 {
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index(){
         $equipos = Equipo::all();
         // return view('equipos.index',['equipos'=>$equipos]);

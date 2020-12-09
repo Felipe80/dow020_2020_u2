@@ -16,13 +16,13 @@
         <!--usuario-->
         <div class="row text-white m-0" style="background-color: #222;">
             <div class="col-8">
-                Bienvenido <b>User1</b>
+                Bienvenido <b>{{Auth::user()->nombre}} ({{Auth::user()->rol->nombre}})</b>
             </div>
             <div class="col-3 text-right d-none d-lg-block">
-                <small>Último inicio de sesión: 06/10/2020 a las 22:28</small>
+                <small>Último inicio de sesión: {{date('d-m-Y',strtotime(Auth::user()->ultimo_login))}} a las {{date('H:i:s',strtotime(Auth::user()->ultimo_login))}}</small>
             </div>
             <div class="col-1 text-right d-none d-lg-block">
-                <a href="{{route('home.login')}}" class="text-white">Cerrar Sesión</a>
+                <a href="{{route('usuarios.logout')}}" class="text-white">Cerrar Sesión</a>
             </div>
         </div>
         <!--/usuario-->
@@ -65,8 +65,9 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Cambiar Contraseña</a>
-                            <a class="dropdown-item" href="#">Usuarios</a>
-                            <a class="dropdown-item d-lg-none" href="index.html">Cerrar Sesión</a>
+                            <a class="dropdown-item" href="{{route('roles.index')}}">Roles</a>
+                            <a class="dropdown-item" href="{{route('usuarios.index')}}">Usuarios</a>
+                            <a class="dropdown-item d-lg-none" href="{{route('usuarios.logout')}}">Cerrar Sesión</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://www.usm.cl" target="_blank">UTFSM</a>
                         </div>

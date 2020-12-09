@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{EquiposController,JugadoresController,EstadiosController,FechasController,PartidosController};
+use App\Http\Controllers\{EquiposController,JugadoresController,EstadiosController,FechasController,PartidosController,RolesController,UsuariosController};
 use App\Http\Controllers\HomeController;
 
 
@@ -40,3 +40,10 @@ Route::resource('/fechas',FechasController::class);
 
 Route::resource('/partidos',PartidosController::class);
 Route::post('/partidos/{partido}/goles',[PartidosController::class,'goles'])->name('partidos.goles');
+
+Route::resource('/roles',RolesController::class);
+
+Route::post('/usuarios/login',[UsuariosController::class,'login'])->name('usuarios.login');
+Route::get('/usuarios/logout',[UsuariosController::class,'logout'])->name('usuarios.logout');
+Route::post('/usuarios/{usuario}/activar',[UsuariosController::class,'activar'])->name('usuarios.activar');
+Route::resource('/usuarios',UsuariosController::class);

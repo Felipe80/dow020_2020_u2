@@ -2,16 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Estadio;
+use App\Models\Rol;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
-class EstadiosController extends Controller
+class RolesController extends Controller
 {
-    public function __construct() {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -19,8 +14,7 @@ class EstadiosController extends Controller
      */
     public function index()
     {
-        $estadios = Estadio::all();
-        return view('estadios.index',compact('estadios'));
+        //
     }
 
     /**
@@ -30,7 +24,7 @@ class EstadiosController extends Controller
      */
     public function create()
     {
-        return view('estadios.create');
+        //
     }
 
     /**
@@ -41,22 +35,16 @@ class EstadiosController extends Controller
      */
     public function store(Request $request)
     {
-        $estadio = new Estadio();
-        $estadio->codigo = $request->codigo;
-        $estadio->nombre = $request->nombre;
-        $estadio->ciudad = $request->ciudad;
-        $estadio->imagen = $request->imagen->store('public/estadios');
-        $estadio->save();
-        return redirect()->route('estadios.index');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Estadio  $estadio
+     * @param  \App\Models\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function show(Estadio $estadio)
+    public function show(Rol $rol)
     {
         //
     }
@@ -64,10 +52,10 @@ class EstadiosController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Estadio  $estadio
+     * @param  \App\Models\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function edit(Estadio $estadio)
+    public function edit(Rol $rol)
     {
         //
     }
@@ -76,10 +64,10 @@ class EstadiosController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Estadio  $estadio
+     * @param  \App\Models\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Estadio $estadio)
+    public function update(Request $request, Rol $rol)
     {
         //
     }
@@ -87,10 +75,10 @@ class EstadiosController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Estadio  $estadio
+     * @param  \App\Models\Rol  $rol
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Estadio $estadio)
+    public function destroy(Rol $rol)
     {
         //
     }

@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\{Usuario,Rol};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\{Auth,Hash};
+use Gate;
 
 
 class UsuariosController extends Controller
 {
     public function __construct() {
         $this->middleware('auth')->except(['login']);
+        
     }
 
     /**
@@ -20,6 +22,10 @@ class UsuariosController extends Controller
      */
     public function index()
     {
+        if(Gate::denies('usuarios-listar')){
+            return redirect()->route('home.index');
+        }
+
         $usuarios = Usuario::all();
         $roles = Rol::all();
         return view('usuarios.index',compact('usuarios','roles'));

@@ -65,8 +65,10 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="#">Cambiar Contraseña</a>
+                            @if(Gate::allows('usuarios-listar'))
                             <a class="dropdown-item" href="{{route('roles.index')}}">Roles</a>
                             <a class="dropdown-item" href="{{route('usuarios.index')}}">Usuarios</a>
+                            @endif
                             <a class="dropdown-item d-lg-none" href="{{route('usuarios.logout')}}">Cerrar Sesión</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="https://www.usm.cl" target="_blank">UTFSM</a>

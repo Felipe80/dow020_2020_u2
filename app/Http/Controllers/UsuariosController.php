@@ -25,6 +25,7 @@ class UsuariosController extends Controller
         if(Gate::denies('usuarios-listar')){
             return redirect()->route('home.index');
         }
+        
 
         $usuarios = Usuario::all();
         $roles = Rol::all();

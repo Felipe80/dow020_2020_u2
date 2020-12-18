@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\{EquiposController,JugadoresController,EstadiosController,FechasController,PartidosController,RolesController,UsuariosController};
+use App\Http\Controllers\{EstadisticasController,EquiposController,JugadoresController,EstadiosController,FechasController,PartidosController,RolesController,UsuariosController};
 use App\Http\Controllers\HomeController;
 
 
@@ -34,6 +34,9 @@ Route::post('/jugadores',[JugadoresController::class,'store'])->name('jugadores.
 Route::get('/jugadores/{jugador}/edit',[JugadoresController::class,'edit'])->name('jugadores.edit');
 Route::put('/jugadores/{jugador}',[JugadoresController::class,'update'])->name('jugadores.update');
 
+Route::resource('/jugadores',JugadoresController::class)->parameters(['jugadores'=>'jugador']);
+
+
 Route::resource('/estadios',EstadiosController::class);
 
 Route::resource('/fechas',FechasController::class);
@@ -47,3 +50,6 @@ Route::post('/usuarios/login',[UsuariosController::class,'login'])->name('usuari
 Route::get('/usuarios/logout',[UsuariosController::class,'logout'])->name('usuarios.logout');
 Route::post('/usuarios/{usuario}/activar',[UsuariosController::class,'activar'])->name('usuarios.activar');
 Route::resource('/usuarios',UsuariosController::class);
+
+Route::get('/estadisticas/tabla-posiciones',[EstadisticasController::class,'tablaPosiciones'])->name('estadisticas.tabla-posiciones');
+Route::get('/estadisticas/descargar-tabla-posiciones',[EstadisticasController::class,'descargarTablaPosiciones'])->name('estadisticas.descargar-tabla-posiciones');

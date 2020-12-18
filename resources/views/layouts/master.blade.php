@@ -46,8 +46,14 @@
                     <li class="nav-item @if(Route::current()->getName()!='home.index' && Request::segments()[0]=='estadios') active @endif">
                         <a class="nav-link" href="{{route('estadios.index')}}">Estadios</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Estadísticas</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Estadísticas
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{route('estadisticas.descargar-tabla-posiciones')}}">Descarga Tabla de Posiciones</a>
+                        </div>
                     </li>
                     <li class="nav-item @if(Route::current()->getName()!='home.index' && Request::segments()[0]=='fechas') active @endif">
                         <a class="nav-link" href="{{route('fechas.index')}}">Fechas</a>
@@ -68,6 +74,9 @@
                             @if(Gate::allows('usuarios-listar'))
                             <a class="dropdown-item" href="{{route('roles.index')}}">Roles</a>
                             <a class="dropdown-item" href="{{route('usuarios.index')}}">Usuarios</a>
+                            @else
+                            <a class="dropdown-item disabled" href="#">Roles</a>
+                            <a class="dropdown-item disabled" href="#">Usuarios</a>
                             @endif
                             <a class="dropdown-item d-lg-none" href="{{route('usuarios.logout')}}">Cerrar Sesión</a>
                             <div class="dropdown-divider"></div>

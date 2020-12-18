@@ -4,6 +4,7 @@
 @section('hojas-estilo')
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.css">
 @endsection
 
 @section('contenido-principal')
@@ -38,11 +39,13 @@
                     @csrf
                     <div class="form-group">
                         <label for="dia">Día:</label>
-                        <input type="date" id="dia" name="dia" class="form-control @error('dia') is-invalid @enderror" value="{{old('dia')}}">
+                        <input type="date" id="dia" name="dia" class="form-control @error('dia') is-invalid @enderror"
+                            value="{{old('dia')}}">
                     </div>
                     <div class="form-group">
                         <label for="hora">Hora:</label>
-                        <input type="time" id="hora" name="hora" class="form-control @error('hora') is-invalid @enderror" value="{{old('hora')}}">
+                        <input type="time" id="hora" name="hora"
+                            class="form-control @error('hora') is-invalid @enderror" value="{{old('hora')}}">
                     </div>
                     <div class="form-group">
                         <label for="fecha">Fecha:</label>
@@ -99,87 +102,100 @@
 
     <!--tabla-->
     <div class="col-12 col-lg-8 mt-1 mt-lg-0">
-        <table class="table table-bordered table-striped table-hover">
+        <table data-toggle="table" data-pagination="true" data-page-size="10" data-search="true" data-show-search-button="true" class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
-                    <th>Nº</th>
+                    <th data-sortable="true">Nº</th>
                     <th>Equipos</th>
                     <th>Día</th>
                     <th>Hora</th>
                     <th>Estado</th>
-                    <th>Fecha</th>
-                    <th>Estadio</th>
-                    <th colspan="3">Acciones</th>
+                    <th data-sortable="true">Fecha</th>
+                    <th>Resultado</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
 
-            @foreach ($partidos as $num=>$partido)
-            <tr>
-                <td>{{$num+1}}</td>
-                <td>
-                    {{$partido->equipoLocal(true)->first()->nombre}} vs
-                    {{$partido->equipoLocal(false)->first()->nombre}}
-                </td>
-                <td>{{date('d-m-Y',strtotime($partido->dia_hora))}}</td>
-                <td>{{date('H:i',strtotime($partido->dia_hora))}}</td>
-                <td>{{$partido->estado==0?'Pendiente':($partido->estado==1?'En curso':'Finalizado')}}</td>
-                <td>Fecha {{$partido->fecha->numero}}</td>
-                <td>{{$partido->estadio->nombre}}</td>
+            <tbody>
+                @foreach ($partidos as $num=>$partido)
+                <tr>
+                    <td>{{$num+1}}</td>
+                    <td>
+                        {{$partido->equipoLocal(true)->first()->nombre}} vs
+                        {{$partido->equipoLocal(false)->first()->nombre}}
+                    </td>
+                    <td>{{date('d-m-Y',strtotime($partido->dia_hora))}}</td>
+                    <td>{{date('H:i',strtotime($partido->dia_hora))}}</td>
+                    <td>{{$partido->estado==0?'Pendiente':($partido->estado==1?'En curso':'Finalizado')}}</td>
+                    <td>Fecha {{$partido->fecha->numero}}</td>
+                    <td>
+                        {{$partido->equipos()->wherePivot('es_local',true)->first()->pivot->cantidad_goles}}
+                        -
+                        {{$partido->equipos()->wherePivot('es_local',false)->first()->pivot->cantidad_goles}}
+                    </td>
+                    <td>
+                        <div class="d-flex justify-content-center">
+                            <!--Borrar-->
+                            <span data-toggle="tooltip" data-placement="top" title="Borrar Partido">
+                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
+                                    data-target="#partidoBorrarModal{{$partido->id}}">
+                                    <i class="far fa-trash-alt"></i>
+                                </button>
+                            </span>
+                            <!--/Borrar-->
 
-                <td class="text-center" style="width:1rem">
-                    <!--Borrar-->
-                    <span data-toggle="tooltip" data-placement="top" title="Borrar Partido">
-                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal"
-                            data-target="#partidoBorrarModal{{$partido->id}}">
-                            <i class="far fa-trash-alt"></i>
-                        </button>
-                    </span>
-                    <!--/Borrar-->
-                </td>
-                <td class="text-center" style="width:1rem">
-                    <a href="#" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top"
-                        title="Editar Partido">
-                        <i class="far fa-edit"></i>
-                    </a>
-                </td>
-                <td class="text-center" style="width:1rem">
-                    <a href="{{route('partidos.show',$partido->id)}}" class="btn btn-sm btn-info" data-toggle="tooltip"
-                        data-placement="top" title="Información Partido">
-                        <i class="fas fa-info-circle"></i>
-                    </a>
-                </td>
-            </tr>
+                            {{-- Editar --}}
+                            <a href="#" class="btn btn-sm btn-warning mx-1" data-toggle="tooltip" data-placement="top"
+                                title="Editar Partido">
+                                <i class="far fa-edit"></i>
+                            </a>
+                            {{-- /Editar --}}
 
-            <!-- Modal Borrar Partido -->
-            <div class="modal fade" id="partidoBorrarModal{{$partido->id}}" tabindex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Confirmar Borrar Partido</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                            {{-- Información --}}
+                            <a href="{{route('partidos.show',$partido->id)}}" class="btn btn-sm btn-info"
+                                data-toggle="tooltip" data-placement="top" title="Información Partido">
+                                <i class="fas fa-info-circle"></i>
+                            </a>
+                            {{-- /Información --}}
                         </div>
-                        <div class="modal-body">
-                            <div class="d-flex align-items-center">
-                                <i class="fas fa-exclamation-circle text-danger mr-2" style="font-size: 2rem"></i>
-                                ¿Desea borrar al partido {{$partido->equipoLocal(true)->first()->nombre}} vs
-                                {{$partido->equipoLocal(false)->first()->nombre}} (Fecha {{$partido->fecha->numero}})?
+
+                        {{-- Modal Borrar Partido --}}
+                        <div class="modal fade" id="partidoBorrarModal{{$partido->id}}" tabindex="-1"
+                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Confirmar Borrar Partido</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-exclamation-circle text-danger mr-2"
+                                                style="font-size: 2rem"></i>
+                                            ¿Desea borrar al partido {{$partido->equipoLocal(true)->first()->nombre}} vs
+                                            {{$partido->equipoLocal(false)->first()->nombre}} (Fecha
+                                            {{$partido->fecha->numero}})?
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <form method="POST" action="{{route('partidos.destroy',$partido->id)}}">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Cancelar</button>
+                                            <button type="submit" class="btn btn-danger">Borrar Partido</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <form method="POST" action="{{route('partidos.destroy',$partido->id)}}">
-                                @csrf
-                                @method('delete')
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-danger">Borrar Partido</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            @endforeach
+                        {{-- /Modal Borrar Partido --}}
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
         </table>
     </div>
     <!--/tabla-->
@@ -188,6 +204,8 @@
 @endsection
 
 @section('scripts')
+<script src="https://unpkg.com/bootstrap-table@1.18.1/dist/bootstrap-table.min.js"></script>
+<script src="{{asset('js/bootstrap-table-es-CL.js')}}"></script>
 <script>
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
